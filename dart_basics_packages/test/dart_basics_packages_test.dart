@@ -1,9 +1,8 @@
-import 'package:dart_basics_packages/dart_basics_packages.dart';
 import 'package:dart_basics_packages/src/helper.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
+  group('Calculator tests', () {
     final calc = Calculator();
 
     setUp(() {
@@ -12,6 +11,18 @@ void main() {
 
     test('GCD test', () {
       expect(calc.gcd(15, 20), 5);
+    });
+
+    test("LCM test", (){
+      expect(calc.lcm(15, 20), 60);
+    });
+
+    test("ToBase2 test", (){
+      expect(calc.convertToBase2(15), 1111);
+    });
+
+    test("ToBase10 test", (){
+      expect(calc.convertToBase10(1111), 15);
     });
   });
 }
