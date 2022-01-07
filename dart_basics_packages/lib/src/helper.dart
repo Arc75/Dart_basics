@@ -1,105 +1,71 @@
-class Calculator {
-  num gcd(num a, num b) {
-    return b == 0 ? a : gcd(b, a % b);
-  }
+import 'dart:math';
 
-  num lcm(num a, num b) {
-    return (a / gcd(a, b)) * b;
-  }
-
-  num convertToBase2(num a) {
-    int number = a.round();
-    return num.tryParse(number.toRadixString(2)) ?? 0;
-  }
-
-  num convertToBase10(num a) {
-    var source = a.round().toString();
-
-    if (source.contains(RegExp('[2-9]'))) {
-      return 0;
-    }
-
-    var result = 0;
-    for (int x = 0; x < source.length; x++) {
-      var character = source[source.length - x - 1];
-      result += int.parse(character) * exp(2, x);
-    }
-
-    return result;
-  }
-
-  List<num> getNumbersFromString(String source) {
-    var regex = RegExp("[0-9]");
-
-    final result = List<num>.empty(growable: true);
-    for (var match in regex.allMatches(source, 0)){
-      result.add(num.parse(match.group(0)!));
-    }
-
-    return result;
-  }
-
-  int exp(int x, int n) {
-    if (n == 0) return 1;
-    if (n == 1) return x;
-    var r = exp(x * x, n ~/ 2);
-    if (n % 2 == 1) r *= x;
-    return r;
-  }
-
-  Map<String, int> wordsCounter(List<String> wordsList) {
-    var result = Map<String, int>();
-
-    for (var word in wordsList){
-      if (result.containsKey(word)){
-        result[word] = result[word]! + 1;
-      }
-      else{
-        result[word] = 1;
-      }
-    }
-
-    return result;
-  }
-
-  Set<int> numbersFromWords(List<String> wordsList){
-    var result = Set<int>();
-
-    for (var word in wordsList){
-      var convertedValue = _convertWordToNumber(word);
-
-      if (convertedValue != null){
-        result.add(convertedValue);
-      }        
-    }
-
-    return result;
-  }
-
-  int? _convertWordToNumber(String word) {
+class Helper {
+  static int? convertWordToNumber(String word) {
     switch (word.trim().toLowerCase()) {
       case "zero":
         return 0;
-        case "one":
+      case "one":
         return 1;
-        case "two":
+      case "two":
         return 2;
-        case "three":
+      case "three":
         return 3;
-        case "four":
+      case "four":
         return 4;
-        case "five":
+      case "five":
         return 5;
-        case "six":
+      case "six":
         return 6;
-        case "seven":
+      case "seven":
         return 7;
-        case "eight":
+      case "eight":
         return 8;
-        case "nine":
-        return 9;        
+      case "nine":
+        return 9;
       default:
-        return null;        
+        return null;
     }
   }
-}  
+}
+
+extension Ex on num {
+  num toPrecision(int n) {
+    
+    num fac = pow(10, n);
+    return (this * fac).round() / fac;
+  }
+
+  num customSqrt(int n) {
+    if (this == null || this == 0) throw FormatException("Невозможно определить корень от указанного числа");
+    if (n <= 0) throw FormatException("Невозможно определить корень от $n степени");
+    if (n == 1) return this;  
+    if (n > 10) throw FormatException("Числа больше 10 это миф");
+    
+    double result = 0;
+    
+    try {
+      double root = this / n;
+      double eps = 0.001;
+      double delX = 100;
+
+      while (delX > eps) {
+        result = (1 / n) * ((n - 1) * root + this / root.exp(n - 1));
+        delX = (result - root).abs();
+        root = result;
+      }
+    } catch (ex) {
+      throw FormatException("При вычислении корня $n степени произошла ошибка: $ex");
+    }
+
+    return result;
+  }
+
+  num exp(int n) {
+    if (n == 0) return 1;
+    if (n == 1) return this;
+    var r = (this * this).exp(n ~/ 2);
+    if (n % 2 == 1) r *= this;
+    return r;
+  }
+}
