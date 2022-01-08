@@ -1,6 +1,8 @@
+import 'dart:math';
 import 'package:dart_basics_packages/src/point.dart';
 import 'package:dart_basics_packages/src/calculator.dart';
 import 'package:dart_basics_packages/src/helper.dart';
+import 'package:dart_basics_packages/src/user.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -49,6 +51,17 @@ void main() {
       expect(81.customSqrt(4).toPrecision(2), 3.0);
       expect(3.exp(4), 81);
       expect(4.15738729.toPrecision(2), 4.16);
+    });
+
+    test("User test", () {
+      expect(AdminUser("waeg@wau.ru").runtimeType,
+          isNot(GeneralUser("waeg@wau.ru").runtimeType));
+
+      final manager = UserManager();
+
+      manager.addUser(AdminUser("wegijo@yandex.ru"));
+      manager.addUser(GeneralUser("wapegjpojwage@google.com"));
+      expect(manager.printUsersEmails(), "yandex.ru,wapegjpojwage@google.com");
     });
   });
 }

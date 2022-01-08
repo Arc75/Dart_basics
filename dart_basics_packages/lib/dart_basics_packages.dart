@@ -1,6 +1,5 @@
 library dart_basics_packages;
 
-import 'dart:math';
 import 'package:powers/powers.dart';
 
 import 'package:dart_basics_packages/src/helper.dart';
@@ -34,12 +33,12 @@ void main() {
   print("$lib $custom");
 
   final manager = UserManager();
-  
+
   manager.addUser(AdminUser("wegijo@yandex.ru"));
   manager.addUser(GeneralUser("wapegjpojwage@google.com"));
   manager.addUser(GeneralUser("wajegio@mail.ru"));
   manager.addUser(GeneralUser("waje.io@mail.ru"));
   manager.removeUser("waje.io@mail.ru");
-  
+
   print(manager.printUsersEmails());
 }
