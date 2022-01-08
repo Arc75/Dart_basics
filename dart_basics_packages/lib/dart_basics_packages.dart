@@ -6,6 +6,7 @@ import 'package:powers/powers.dart';
 import 'package:dart_basics_packages/src/helper.dart';
 import 'package:dart_basics_packages/src/calculator.dart';
 import 'package:dart_basics_packages/src/point.dart';
+import 'package:dart_basics_packages/src/user.dart';
 
 void main() {
   final calc = Calculator();
@@ -31,4 +32,14 @@ void main() {
   print(numbersSet.join(','));
   print(distance.toPrecision(2));
   print("$lib $custom");
+
+  final manager = UserManager();
+  
+  manager.addUser(AdminUser("wegijo@yandex.ru"));
+  manager.addUser(GeneralUser("wapegjpojwage@google.com"));
+  manager.addUser(GeneralUser("wajegio@mail.ru"));
+  manager.addUser(GeneralUser("waje.io@mail.ru"));
+  manager.removeUser("waje.io@mail.ru");
+  
+  print(manager.printUsersEmails());
 }
