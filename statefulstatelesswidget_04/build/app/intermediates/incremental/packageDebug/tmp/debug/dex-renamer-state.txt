@@ -1,4 +1,0 @@
-#Wed Jan 12 14:25:05 MSK 2022
-base.0=D\:\\Study\\Flutter\\Homework\\Dart_basics\\statefulstatelesswidget_04\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
