@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/statefulstatelesswidget_04/BuildConfig.java
+ com.example.statefulstatelesswidget_04.BuildConfig
