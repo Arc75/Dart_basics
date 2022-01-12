@@ -1,0 +1,23 @@
+name: statefulstatelesswidget_04
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  carousel_slider:
+    git:
+      url: https://github.com/serenader2014/flutter_carousel_slider.git
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  uses-material-design: true
