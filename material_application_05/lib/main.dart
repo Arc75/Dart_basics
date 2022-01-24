@@ -21,10 +21,39 @@ class ScaffoldExample extends StatefulWidget {
   State<ScaffoldExample> createState() => _ScaffoldExampleState();
 }
 
-class _ScaffoldExampleState extends State<ScaffoldExample> {
+class _ScaffoldExampleState extends State<ScaffoldExample>
+    with TickerProviderStateMixin {
   var tabIndex = 0;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  //PersistentBottomSheetController _controller;
+  PersistentBottomSheetController? _controller;
+  TabController? _tabController;
+  int _currentTabIndex = 0;
+
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController!.addListener(() {
+      setState(() {
+        _currentTabIndex = _tabController!.index;
+      });
+    });
+  }
+
+  void toggleBottomSheet() {
+    if (_controller == null) {
+      _controller =
+          scaffoldKey.currentState!.showBottomSheet((context) => Container(
+                color: Colors.blue[400],
+                height: 300,
+                child: Center(
+                  child: Text('Bottom sheet'),
+                ),
+              ));
+    } else {
+      _controller!.close();
+      _controller = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +72,44 @@ class _ScaffoldExampleState extends State<ScaffoldExample> {
           )
         ],
       ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Container(
+            color: Colors.cyan,
+            child: Text('Tab1'),
+          ),
+          Container(
+            color: Colors.orange,
+            child: Text('Tab2'),
+          ),
+          Container(
+            color: Colors.indigo,
+            child: Text('Tab3'),
+          ),
+        ],
+      ),
       drawer: Helper.getLeftDrawer(),
-      endDrawer: Helper.getEndDrawer()
+      endDrawer: Helper.getEndDrawer(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.backup), label: 'Backup'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.assessment), label: 'Assessment'),
+        ],
+        onTap: (i) {
+          setState(() {
+            _tabController!.index = i;
+            _currentTabIndex = i;
+          });
+        },
+        currentIndex: _currentTabIndex,
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: toggleBottomSheet,
+          backgroundColor: Colors.blue[400],
+          child: const Icon(Icons.navigation)),
     );
   }
 }
